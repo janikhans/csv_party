@@ -29,7 +29,7 @@ The available built-in parsers are:
   - `:string` strips whitespace and returns the resulting string
   - `:integer` strips whitespace, then calls `to_i` on the resulting string
   - `:decimal` strips all characters except `0-9` and `.`, then passes the
-    resulting string to `BigDecimal.new`
+    resulting string to `BigDecimal()`
   - `:boolean` strips whitespace, downcases, then returns `true` if the
     resulting string is `'1'`, `'t'`, or `'true'`, otherwise it returns `false`
 
@@ -48,7 +48,7 @@ you can use it the same way you use the built-in parsers:
 
     class MyImporter < CSVParty
       def dollars_to_cents_parser(value)
-        (BigDecimal.new(value) * 100).to_i
+        (BigDecimal(value) * 100).to_i
       end
 
       column :price_in_cents, header: 'Price in $', as: :dollars_to_cents
@@ -70,7 +70,7 @@ given column by setting `intercept_blanks` to `false` in the options hash:
         if value.nil?
           'n/a'
         else
-          BigDecimal.new(value)
+          BigDecimal(value)
         end
       end
     end
@@ -88,7 +88,7 @@ work:
 
       column :price, header: 'Price', do |value|
         # product is not defined...
-        product.price = BigDecimal.new(value)
+        product.price = BigDecimal(value)
       end
     end
 
@@ -206,6 +206,7 @@ the name and value of the dependency:
 CSVParty has been tested against the following Rubies:
 
 MRI
+- 2.7
 - 2.5
 - 2.4
 - 2.3

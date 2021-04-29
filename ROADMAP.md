@@ -317,7 +317,7 @@ row. Sometimes, though, you need access to multiple column values to create a
 useful parsed value. Here is what an API for that might look like:
 
     column :total, header: ['Price', 'Quantity'] do |price, quantity|
-      BigDecimal.new(price) * BigDecimal.new(quantity)
+      BigDecimal(price) * BigDecimal(quantity)
     end
 
 #### Parse Dependencies

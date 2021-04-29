@@ -37,7 +37,7 @@ Strips whitespace, then calls to_i on the resulting string. Values can be positi
     ' -1 ' #=> -1
 
 #### `:decimal` parser
-Strips all characters except `-`, `0-9` and `.`, then passes the resulting string to `BigDecimal.new`. Values can be positive or negative.
+Strips all characters except `-`, `0-9` and `.`, then passes the resulting string to `BigDecimal()`. Values can be positive or negative.
 
     column :price, as: :decimal
     ' 1 ' #=> 1.0
@@ -97,7 +97,7 @@ A block containing custom parsing logic can be used as well.
 A custom parser can be named for re-use across multiple columns. Just add a method with a name that ends in `_parser`.
 
     def dollars_to_cents_parser(value)
-      (BigDecimal.new(value) * 100).to_i
+      (BigDecimal(value) * 100).to_i
     end
 
     column :price_in_cents, header: 'Price in $', as: :dollars_to_cents
@@ -126,7 +126,7 @@ given column by setting `intercept_nils` to `false` in the options hash:
         if value.nil?
           'n/a'
         else
-          BigDecimal.new(value)
+          BigDecimal(value)
         end
       end
     end
